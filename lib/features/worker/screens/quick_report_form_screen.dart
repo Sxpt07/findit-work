@@ -101,6 +101,7 @@ class _QuickReportFormScreenState extends State<QuickReportFormScreen> {
               showBack: true,
               subtitle: 'Form Pencatatan Lengkap',
               onBack: () => Navigator.pop(context),
+              trailing: const WorkerBrandLogo(),
             ),
             Expanded(
               child: ListView(

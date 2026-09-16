@@ -8,7 +8,7 @@ class AutoReturnCountdown extends StatelessWidget {
   const AutoReturnCountdown({
     super.key,
     required this.seconds,
-    this.total = 3,
+    this.total = 10,
   });
 
   final int seconds;

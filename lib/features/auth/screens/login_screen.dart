@@ -197,28 +197,14 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.fromLTRB(24, 34, 24, 52),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(18),
-                      boxShadow: [
-                        BoxShadow(color: Colors.black.withValues(alpha: 0.15), blurRadius: 12, offset: const Offset(0, 6)),
-                      ],
-                    ),
-                    child: const Icon(Icons.explore_outlined, color: _navy, size: 30),
-                  ),
-                  const SizedBox(width: 12),
-                  const Text(
-                    'FindIt',
-                    style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w800, letterSpacing: 0.3),
-                  ),
-                ],
+              Center(
+                child: Image.asset(
+                  'assets/images/logo-light.png',
+                  height: 76,
+                  fit: BoxFit.contain,
+                ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
               const Text(
                 'Akses Internal Petugas',
                 style: TextStyle(color: Colors.white70, fontSize: 12.5, fontWeight: FontWeight.w500),

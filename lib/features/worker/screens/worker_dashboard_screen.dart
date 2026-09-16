@@ -5,18 +5,16 @@ import '../state/found_items_controller.dart';
 import '../theme/app_colors.dart';
 import '../widgets/found_item_card.dart';
 import '../widgets/found_item_detail_sheet.dart';
-import '../widgets/greeting_card.dart';
 import '../widgets/history_filter_bar.dart';
 import '../widgets/quick_capture_card.dart';
-import '../widgets/stat_summary_cards.dart';
 import '../widgets/worker_header.dart';
+import '../widgets/worker_profile_sheet.dart';
 import 'quick_report_form_screen.dart';
 
 /// Halaman utama Dashboard Petugas "Find It! — Petugas".
 ///
 /// Menerapkan ListView dari widget-widget kecil: [WorkerHeader],
-/// [GreetingCard], [QuickCaptureCard], [StatSummaryRow],
-/// [HistoryFilterBar], dan [FoundItemCard].
+/// [QuickCaptureCard], [HistoryFilterBar], dan [FoundItemCard].
 class WorkerDashboardScreen extends StatefulWidget {
   const WorkerDashboardScreen({super.key});
 
@@ -81,24 +79,16 @@ class _WorkerDashboardScreenState extends State<WorkerDashboardScreen> {
         children: [
           WorkerHeader(
             leading: const WorkerBrandLogo(),
-            subtitle: '• Grand Melia Jakarta • Shift Pagi',
-            extra: _controller.currentShiftLabel,
+            subtitle: 'Grand Meliá Jakarta',
+            onAvatarTap: () => WorkerProfileSheet.show(context),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                GreetingCard(todayCount: _controller.todayCount),
-                const SizedBox(height: 12),
                 QuickCaptureCard(onTap: _openReportForm),
-                const SizedBox(height: 14),
-                StatSummaryRow(
-                  total: _controller.items.length,
-                  unclaimed: _unclaimedCount,
-                  claimed: _controller.claimedCount,
-                ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
                 HistoryFilterBar(
                   selectedIndex: _statusFilter,
                   total: _controller.items.length,

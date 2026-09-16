@@ -7,7 +7,6 @@ import '../widgets/auto_return_countdown.dart';
 import '../widgets/item_saved_card.dart';
 import '../widgets/saved_success_intro.dart';
 import '../widgets/ticket_registration_card.dart';
-import '../widgets/worker_bottom_navbar.dart';
 import '../widgets/worker_header.dart';
 import 'quick_report_form_screen.dart';
 
@@ -25,7 +24,7 @@ class ItemSavedSuccessScreen extends StatefulWidget {
 
 class _ItemSavedSuccessScreenState extends State<ItemSavedSuccessScreen> {
   Timer? _timer;
-  int _seconds = 3;
+  int _seconds = 10;
 
   @override
   void initState() {
@@ -73,10 +72,10 @@ class _ItemSavedSuccessScreenState extends State<ItemSavedSuccessScreen> {
         bottom: false,
         child: Column(
           children: [
-            const WorkerHeader(showSearch: true),
+            const WorkerHeader(showSearch: true, trailing: WorkerBrandLogo()),
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.fromLTRB(16, 14, 16, 28),
+                padding: const EdgeInsets.fromLTRB(16, 14, 16, 24),
                 children: [
                   const SavedSuccessIntro(),
                   const SizedBox(height: 16),
@@ -84,8 +83,8 @@ class _ItemSavedSuccessScreenState extends State<ItemSavedSuccessScreen> {
                   const SizedBox(height: 14),
                   const ItemSavedCard(),
                   const SizedBox(height: 16),
-                  AutoReturnCountdown(seconds: _seconds),
-                  const SizedBox(height: 14),
+                  AutoReturnCountdown(seconds: _seconds, total: 10),
+                  const SizedBox(height: 20),
                   _primaryButton(),
                   const SizedBox(height: 10),
                   _secondaryButton(),
@@ -95,7 +94,6 @@ class _ItemSavedSuccessScreenState extends State<ItemSavedSuccessScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: const WorkerBottomNavBar(currentIndex: 1),
     );
   }
 

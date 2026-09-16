@@ -10,23 +10,23 @@ class WorkerHeader extends StatelessWidget {
   const WorkerHeader({
     super.key,
     this.title = 'Find It! — Petugas',
-    this.subtitle = 'Grand Melia Jakarta • Shift Pagi',
-    this.extra,
+    this.subtitle = 'Grand Meliá Jakarta',
     this.leading,
     this.showBack = false,
     this.showSearch = false,
     this.onBack,
     this.trailing,
+    this.onAvatarTap,
   });
 
   final String? title;
   final String? subtitle;
-  final String? extra;
   final Widget? leading;
   final bool showBack;
   final bool showSearch;
   final VoidCallback? onBack;
   final Widget? trailing;
+  final VoidCallback? onAvatarTap;
 
   Widget? _buildLeading() {
     if (leading != null) return leading;
@@ -58,29 +58,36 @@ class WorkerHeader extends StatelessWidget {
       child: SafeArea(
         bottom: false,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (leadingWidget != null) ...[leadingWidget, const SizedBox(width: 10)],
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   if (title != null)
                     Text(
                       title!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w800),
                     ),
                   if (subtitle != null) ...[
                     const SizedBox(height: 3),
-                    Text(subtitle!, style: const TextStyle(color: Colors.white70, fontSize: 11)),
-                  ],
-                  if (extra != null) ...[
-                    const SizedBox(height: 2),
-                    Text(extra!, style: const TextStyle(color: Colors.white60, fontSize: 10)),
+                    Text(
+                      subtitle!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 11),
+                    ),
                   ],
                 ],
               ),
             ),
-            if (trailing != null) trailing! else const WorkerHeaderAvatar(),
+            const SizedBox(width: 12),
+            if (trailing != null) trailing! else WorkerHeaderAvatar(onTap: onAvatarTap),
           ],
         ),
       ),
@@ -90,49 +97,36 @@ class WorkerHeader extends StatelessWidget {
 
 /// Avatar profil lingkaran putih dengan ikon person.
 class WorkerHeaderAvatar extends StatelessWidget {
-  const WorkerHeaderAvatar({super.key});
+  const WorkerHeaderAvatar({super.key, this.onTap});
+
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 38,
-      height: 38,
-      decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-      child: const Icon(Icons.person_outline, color: AppColors.navy, size: 22),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 38,
+        height: 38,
+        decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+        child: const Icon(Icons.person_outline, color: AppColors.navy, size: 22),
+      ),
     );
   }
 }
 
-/// Blok logo "Find It!" + tulisan LOST & FOUND untuk leading dashboard.
+/// Blok logo "Find It!" untuk leading/trailing header Worker.
 class WorkerBrandLogo extends StatelessWidget {
-  const WorkerBrandLogo({super.key});
+  const WorkerBrandLogo({super.key, this.height = 44});
+
+  final double height;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 26,
-              height: 26,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              child: const Icon(Icons.explore_outlined, color: AppColors.navy, size: 17),
-            ),
-            const SizedBox(width: 8),
-            const Text(
-              'Find It!',
-              style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800),
-            ),
-          ],
-        ),
-        const SizedBox(height: 2),
-        const Text(
-          'LOST & FOUND',
-          style: TextStyle(color: Colors.white70, fontSize: 8, fontWeight: FontWeight.w700, letterSpacing: 1),
-        ),
-      ],
+    return Image.asset(
+      'assets/images/logo-light.png',
+      height: height,
+      fit: BoxFit.contain,
     );
   }
 }

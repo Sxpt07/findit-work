@@ -13,7 +13,7 @@ List<FoundItemModel> mockFoundItems() {
       location: 'Room 214 - Nakas',
       description: 'Ditemukan di bawah meja nakas Kamar 214. Kondisi masih bagus.',
       foundDate: now.subtract(const Duration(hours: 5)),
-    ),
+    ),  
     FoundItemModel(
       id: 'w2',
       name: 'Jaket Denim',

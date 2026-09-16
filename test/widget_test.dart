@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:findit_worker/features/auth/screens/login_screen.dart';
 import 'package:findit_worker/features/worker/screens/quick_report_form_screen.dart';
+import 'package:findit_worker/features/worker/widgets/worker_header.dart';
+import 'package:findit_worker/features/worker/widgets/worker_profile_sheet.dart';
 import 'package:findit_worker/main.dart';
 
 Future<void> _login(WidgetTester tester) async {
@@ -59,7 +61,22 @@ void main() {
     await _login(tester);
 
     // 1) Dashboard -> Quick Capture (langsung ke Form Pencatatan Lengkap)
-    expect(find.text('Selamat Bertugas, Siti!'), findsOneWidget);
+    expect(find.text('+ Catat Barang Temuan'), findsOneWidget);
+    expect(find.textContaining('SHIFT'), findsNothing);
+
+    // 1b) Tap avatar -> modal profil -> logout -> kembali ke Login
+    await tester.tap(find.byType(WorkerHeaderAvatar));
+    await tester.pumpAndSettle();
+    expect(find.byType(WorkerProfileSheet), findsOneWidget);
+    expect(find.text('Siti Nurhaliza'), findsOneWidget);
+    await tester.tap(find.text('Logout'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Login Petugas'), findsOneWidget);
+    expect(find.text('+ Catat Barang Temuan'), findsNothing);
+
+    // 1c) Login lagi untuk melanjutkan alur report
+    await _login(tester);
     expect(find.text('+ Catat Barang Temuan'), findsOneWidget);
     await tester.tap(find.text('+ Catat Barang Temuan'));
     await tester.pumpAndSettle();
@@ -97,7 +114,7 @@ void main() {
     await tester.tap(find.text('Kembali ke Beranda Sekarang'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Selamat Bertugas, Siti!'), findsOneWidget);
     expect(find.text('+ Catat Barang Temuan'), findsOneWidget);
+    expect(find.textContaining('SHIFT'), findsNothing);
   });
 }
